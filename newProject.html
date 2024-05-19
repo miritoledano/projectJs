@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="newproject.css" />
+</head>
+<body >
+  
+  <audio id="backgroundMusic" src="Niki N. Phaser - Game Over Logo.mp3" autoplay loop></audio>
+
+ 
+<div id="all">
+<div id="alll">
+<div class="star">
+<img id="star1" src="star.png"/>
+<img id="star2"  src="star.png"/>
+<img id="star3"  src="star.png"/>
+</div>
+<div id="lookfor"></div>`
+<div id="scor"><h1 id="h1"></h1><h1 id="grade"></h1></div>
+<div class="timer animatable"> <svg>
+<circle cx="50%" cy="50%" r="90"/>
+<circle cx="50%" cy="50%" r="90" pathLength="1" />
+<text x="100" y="100" text-anchor="middle"><tspan id="timeLeft"></tspan></text>
+<text x="100" y="120" text-anchor="middle" id="second">seconds</text>
+</svg>
+</div>
+</div> 
+<div id="board"></div>
+<div id="timer animatable"></div>
+<div id="results">
+ 
+<button id="try">Try again💕!</button>
+</div>
+</div>
+
+<script>
+  
+
+window.addEventListener('DOMContentLoaded', function () {
+  var audio = document.getElementById('backgroundMusic');
+   audio.play();
+   });
+// document.getElementById("scor").addEventListener("click", function () {
+//  localStorage.setItem("userName", document.getElementById("user").value);
+
+// })
+
+let timeLeft = 60;
+let timer = document.getElementById('timeLeft');
+
+function isTimeLeft() {
+  return timeLeft > -1;
+}
+
+function runTimer(timerElement) {
+	const timerCircle = timerElement.querySelector('svg > circle + circle');
+	timerElement.classList.add('animatable');
+	timerCircle.style.strokeDashoffset = 1;
+    
+	let countdownTimer = setInterval(function(){
+		if(isTimeLeft()){
+const timeRemaining = timeLeft--;
+const normalizedTime = (60 - timeRemaining) / 60;
+     timerCircle.style.strokeDashoffset = normalizedTime;
+      timer.innerHTML = timeRemaining;
+		} else {
+clearInterval(countdownTimer);
+timerElement.classList.remove('animatable');}  
+	}, 1000);}
+runTimer(document.querySelector('.timer'));
+let cnt=0;
+let k=4;
+let span;
+let newRow;
+let numbers;
+let x;
+start (k);
+function start(k){
+let rand1=Math.floor(Math.random() * (k*10))+1;
+let ri=Math.floor(Math.random() * k)+1;
+let rj=Math.floor(Math.random() *k )+1;
+let numid;
+document.getElementById("lookfor").innerHTML=rand1;
+let board = document.getElementById("board");
+for (let i = k; i >= 1; i--)
+{
+newRow = document.createElement("div");
+newRow.classList.add("row");
+board.appendChild(newRow);
+for (let j = k; j >= 1; j--)
+{
+ let     numbers = i *k -j+1;
+span = document.createElement("span");
+span.setAttribute("id", "a" + numbers);
+ newRow.appendChild(span);
+if(k==4){
+span.classList.add("square");
+}
+if(k==7){
+span.classList.add("square7");
+}
+if(k==10){
+span.classList.add("square10");
+}
+let rand2=Math.floor(Math.random() * (k*10))+1;
+  while(rand1==rand2)
+   rand2=Math.floor(Math.random() * (k*10))+1; 
+span.textContent=rand2;   
+ if(ri==i&&rj==j){
+  span.textContent=rand1;
+numid=numbers;
+}
+let num= i *k -j+1;
+
+document.getElementById( "a" +num).addEventListener("click", chek2);
+function chek2(){
+ 
+  document.getElementById("a"+num).textContent="😒";
+ } }}
+  // document.getElementById("scor").innerHTML=localStorage.getItem("name");
+  let y=localStorage.getItem("name");
+
+
+  document.getElementById("h1").innerHTML=y;   
+
+ document.getElementById( "a" + numid).addEventListener("click", chek);
+function chek(){
+
+  x=document.getElementById("grade");
+  x.setAttribute("class","grade"); 
+  cnt+=100;
+  document.getElementById("grade").innerHTML="+"+ cnt;
+  document.getElementById("board").innerHTML = "";
+  if (cnt == 300) {
+  k = 7;
+  x.classList.remove("grade");
+  document.getElementById("star1").src = "star_477406.png"; 
+  }
+  if (cnt == 600) {x.classList.remove("grade");
+  k = 10;
+  document.getElementById("star2").src = "star_477406.png"; 
+  }
+  
+  if (cnt == 900) {x.classList.remove("grade");
+  document.getElementById("star3").src = "star_477406.png";
+  k=0; 
+  const myTimeout = setTimeout(win, 1000);
+  }
+  function win() {
+window.location.href = "win.html";
+
+ clearTimeout(myTimeout);
+ }
+  start(k);
+  // localStorage.setItem("record",document.getElementById("c").value);
+}
+}
+
+console.log(span);
+document.getElementById("try").addEventListener('click',function(){
+  window.location.href = "newProject.html";
+   })
+   
+</script>
+</body>
+</html>
